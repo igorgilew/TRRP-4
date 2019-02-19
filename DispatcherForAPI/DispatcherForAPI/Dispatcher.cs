@@ -86,9 +86,12 @@ namespace DispatcherForAPI
             string serverAddress = string.Empty;
             CheckServersStatus();
             var properTuple = addressAndPortContainer.Find(x => (x.Item3 && x.Item4 == currentMinCountClients));
-            serverAddress = $"{properTuple.Item1}:{properTuple.Item2}";
-            addressAndPortContainer.Remove(properTuple);
-            addressAndPortContainer.Add(Tuple.Create(properTuple.Item1, properTuple.Item2, properTuple.Item3, properTuple.Item4 + 1));
+            if(properTuple != null)
+            {
+                serverAddress = $"{properTuple.Item1}:{properTuple.Item2}";
+                addressAndPortContainer.Remove(properTuple);
+                addressAndPortContainer.Add(Tuple.Create(properTuple.Item1, properTuple.Item2, properTuple.Item3, properTuple.Item4 + 1));
+            }            
             return serverAddress;
         }
 
